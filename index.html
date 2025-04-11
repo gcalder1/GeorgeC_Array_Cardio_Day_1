@@ -53,11 +53,15 @@
     condition referenced. The reason this could be useful is because it can
     ignore elements that do NOT meet the requirements of the condition used 
     as the filter, therefore allowing us to have a stored, shallow copy of that
-    new array. 
+    new array. In terms of ignore elements, what that means is that they
+    WILL NOT be included within the new array if they return falsy (if its
+    an empty string, a null, an undefined, or a 0).
     
     If we were to edit the original array, the filtered array would
     then reflect those changes since the shallow copy is copying the original
-    elements that return truthy for your condition of your filter. 
+    elements that return truthy for your condition of your filter. However,
+    shallow copies DO NOT take on nested values but only superficial, outter
+    values of arrays.
     
     And because the elements that return as truthy will be stored within that new shallow
     copy of the array, if we were to console.log (or console table for arrays
@@ -80,13 +84,38 @@
     applies whatever function was declared for it. The result from this is
     a new array in the form of a shallow copy based on the original array,
     where the objects within the new array have been altered by whatever
-    function was declared within the method's function call. The amout of
+    function was declared within the method's function call. The amount of
     objects returned will always be the same amount of objects as in the
-    original array because it is a shallow copy after all does not affect
-    the original array in the first place (does not mutate OG array).
-    
-    */
+    original array because it does not affect the original array but instead
+    only affects what is shown in that copy(does not mutate OG array). 
 
+    This can help with returning outputs of data that are relevant to each 
+    other since EVERYTHING from original output will be return but only 
+    based on whatever function your provide. This does NOT mean that the
+    elements that return as falsy DO NOT appear within the new array, but rather
+    they are shown as they were, left untouched/unchanged. This way, all
+    objects available within the array will still be mapped (meaning things
+    like sparse arrays with empty elements will work but the element will 
+    appear as empty or null or 0, etc.)
+
+    If the function concatenates or uses a template literal to interpolate the
+    values into a string, then you can still return or print those objects as
+    a string becuase it was define within the function's method.
+
+    e.g. 
+    const colorProfile = [
+    {colorMain: 'red', colorSub: 'blue'},
+    {colorMain: 'blue', colorSub: 'green'},
+    {colorMain: 'green', colorSub: 'white'},
+    {colorMain: 'white', colorSub: 'red'},
+    {colorMain: 'blue', colorSub: 'black'}
+    ];
+
+  const colorCombo = colorProfile.map(color => 
+    `Although I do like ${color.colorSub}, my favorite color is ${color.colorMain}`);
+    console.table(colorCombo);
+
+    */
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
@@ -107,8 +136,9 @@
     console.table(ordered);
 
     /* +++++My notes: .sort()+++++
+
     .sort() applies changes to the original data structure based on the
-    function called. This means that it does not use a copy of the data.
+    function called. This means that it DOES NOT use a copy of the data.
     Since it is using the OG array's elements, then any changes would affect
     other things that would make copies of the OG's array's data set.
 
@@ -124,16 +154,62 @@
     
     if a === b -> return 0; means that no order change will occur
 
-    If no function was declared, then a few things could happen. If the
-    array's elements were numbers, then they'll just be sorted numerically. 
-    If they were strings, then the array would be sorted based on their 
-    unicode values. The .sort() has some default stuff it relies on incase
-    something like this would happen.
+    If no function was declared, then the elements would be sorted in an ascending order.
+    If the array's elements were numbers, then they'll just be sorted 
+    numerically that way. 
+
+    e.g. console.log(sortedNums); // [1, 20, 33, 46, 89, 101]
+    
+    If they were strings, then the array would be sorted based 
+    on their unicode values in the same ascending order. 
+
+    e.g.  const stringString = ["hello", "goodbye", "cheese", "water", "dog"];
+          stringString.sort();
+          console.log(sortedStrings); // ["cheese", "dog", "goodbye", "hello", "water"]
+
+    The .sort() has some default stuff it relies on incase something like 
+    this would happen.
+    
     */
 
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0);
+
+    console.log(totalYears);
+
+    /*+++++My notes: .reduce()+++++
+    
+    .reduce() is a method that takes a function and pushes it through the two
+    specified variables within that method. With one variable being
+    the initialized amount (where the reduce method will begin) and the 
+    second variable being the way that it accumulates (the way it will change),
+    the returned value will be the sequential combination of the element on the
+    index we're at with the element of the index that is next in the iteration.
+    This culminates to a returned value that is ONLY received after the final
+    iteration, which would be the combined result of the current value and the
+    accumulator. This value does not change anything within the array itself
+    nor does it make a copy of the array in any way, but instead outputs that
+    "reduced" value.
+
+    If no initial value is provided, the .reduce() method takes the value of
+    the index of zero regardless BUT starts the iteration at the index of 1
+    meaning that it will take the combined values of both as specified by
+    the function provided. If not provided with any function, then we will
+    get an error. If no array is provided, then we'll also get an error 
+    because reduce() needs something to start off on to iterate through.
+
+    With this in mind, it is important to remember that the .reduce() 
+    method will not return an object or an array since it is returning the
+    culmination of all of your values per the initialized value, the 
+    accumulator, and the specified function's method ALL in a single value.
+
+    */
+
 
     // 5. Sort the inventors by years lived
 
