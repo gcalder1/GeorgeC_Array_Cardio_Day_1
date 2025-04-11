@@ -38,9 +38,38 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    
+    const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600))
+    
+    //using arrow function to write in one line - returns boolean value of true
+    //in the same way
+    
+    console.table(fifteen);
+
+    /* +++++My Notes: .filter()+++++
+    
+    The filter method can be used to return a shallow copy of your data
+    with the elements from the original array that return truthy based on the
+    condition referenced. The reason this could be useful is because it can
+    ignore elements that do NOT meet the requirements of the condition used 
+    as the filter, therefore allowing us to have a stored, shallow copy of that
+    new array. 
+    
+    If we were to edit the original array, the filtered array would
+    then reflect those changes since the shallow copy is copying the original
+    elements that return truthy for your condition of your filter. 
+    
+    And because the elements that return as truthy will be stored within that new shallow
+    copy of the array, if we were to console.log (or console table for arrays
+    that have objects) that array, we would only those same values that return
+    as truthy and not the original array.
+    
+    */
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
