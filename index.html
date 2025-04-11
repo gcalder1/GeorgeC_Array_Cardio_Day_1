@@ -66,6 +66,7 @@
     
     */
 
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
@@ -73,8 +74,9 @@
     console.log(fullNames);
     // console.table(fullNames); <- MAkes info easier to see
 
-    /*
-    .mpa() is a method that iterates through each object within an array and
+    /* +++++My notes: .map()+++++
+
+    .map() is a method that iterates through each object within an array and
     applies whatever function was declared for it. The result from this is
     a new array in the form of a shallow copy based on the original array,
     where the objects within the new array have been altered by whatever
@@ -85,8 +87,50 @@
     
     */
 
+
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+
+    // const ordered = inventors.sort(function(firstPerson, secondPerson) {
+    //   if (firstPerson.year > secondPerson.year) {
+    //     return 1; //because firstPerson would return a 1, this would make it
+    //     //less than, therefore allowing first person to appear after. 
+    //   } else {
+    //     return -1; //because first person would return a -1 instead, this
+    //     //would make a less than b therefore allowing first-person to 
+    //     //appear before since the method checks against 0.
+    //   }
+    // });
+
+    const ordered = inventors.sort((firstPerson, secondPerson) => firstPerson.year > secondPerson.year ? 1 : -1);
+
+    console.table(ordered);
+
+    /* +++++My notes: .sort()+++++
+    .sort() applies changes to the original data structure based on the
+    function called. This means that it does not use a copy of the data.
+    Since it is using the OG array's elements, then any changes would affect
+    other things that would make copies of the OG's array's data set.
+
+    .sort() organizes based on what criteria the method of the function you 
+    provide has when called. Based on what the function finds is true, then
+    that will determine the order of said array elements.
+
+    (e.g: 
+    
+    if a > b -> return 1; means that a will go after b in the newly sorted array
+    
+    if a < b -> return -1; means that a will go before b in the newly sorted array
+    
+    if a === b -> return 0; means that no order change will occur
+
+    If no function was declared, then a few things could happen. If the
+    array's elements were numbers, then they'll just be sorted numerically. 
+    If they were strings, then the array would be sorted based on their 
+    unicode values. The .sort() has some default stuff it relies on incase
+    something like this would happen.
+    */
+
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
