@@ -69,7 +69,21 @@
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
+    const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log(fullNames);
+    // console.table(fullNames); <- MAkes info easier to see
 
+    /*
+    .mpa() is a method that iterates through each object within an array and
+    applies whatever function was declared for it. The result from this is
+    a new array in the form of a shallow copy based on the original array,
+    where the objects within the new array have been altered by whatever
+    function was declared within the method's function call. The amout of
+    objects returned will always be the same amount of objects as in the
+    original array because it is a shallow copy after all does not affect
+    the original array in the first place (does not mutate OG array).
+    
+    */
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
