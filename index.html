@@ -213,16 +213,80 @@
 
     // 5. Sort the inventors by years lived
 
+    const oldest = inventors.sort(function(a, b){
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+
+      return lastGuy > nextGuy ? -1 : 1;
+
+      // if (lastGuy > nextGuy){ //using ternary operator instead for simple 2-part condition
+      //   return -1;
+      // }
+
+      // else {
+      //   return 1;
+      // }
+    });
+    console.table(oldest);
+
+
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    /*
+    const category = document.querySelector('.mw-category'); //targetting the element that contains the list
+    const links = Array.from(category.querySelectorAll('a')); //creates an array out of your node list (in this case, the links)
+    const de = links
+                    .map(link => link.textContent) //maps the text from the links without mapping the actual nested things
+                    .filter(streetName => streetName.includes('de')); // creates a shallow copy containing things that fit the parameter of the .includes method which is "de", therefore
+                                                                      // only showing us the new array with the text that contains "de"
+                                                                      // Side Note: It didn't occur to me that you could just use array methods one after the other: .map().filter(), etc..
+
+    */
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    const alphabeticalOrder = people.sort(function(lastOne, nextOne){ // => to replace function after both parameters
+      const [aLast, aFirst] = lastOne.split(', '); //using these to define 
+      const [bLast, bFirst] = nextOne.split(', ');//the conversion
+      if (aLast > bLast){
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    console.log(alphabeticalOrder);
+    /*
+    We use .split() here to split the the string into seperate strings within 
+    the same copy of the array, avoiding modifying the original array. This method
+    returns a new array as well, containing the defined split method applied to the
+    original array. What we get instead of the original array is a copy with .split()
+    parameter applied to the elements within the array.
+
+    In this case, since we had a string of a last name and first name, we needed a 
+    way to actually use those, which is why we had to convert the OG strings into
+    new usable elements.
+    */
+
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
+
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const transportation = data.reduce(function(obj, item){ // 
+      if(!obj[item]){ //if there is no object item, then sets the object item to 0 (initializer)
+       
+        obj[item] = 0;
+      }
+      
+      obj[item]++; //As is it going through the array, if it finds that object item, then increases the item of the object by 1 (in this case the item is the amount of times it is seen)
+      return obj; //Returns the new object at its amount (wouldn't do obj[item] because we're not trying to access what is inside of truck since it would return a reference error)
+    }, {}); //iterates through entire array
+    
+    console.log(transportation); //Shows new values. Does not change array since .reduce() only displays values of reduce method actually applying
+
 
   </script>
 </body>
