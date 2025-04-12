@@ -90,17 +90,18 @@
     only affects what is shown in that copy(does not mutate OG array). 
 
     This can help with returning outputs of data that are relevant to each 
-    other since EVERYTHING from original output will be return but only 
-    based on whatever function your provide. This does NOT mean that the
+    other since the quanitity of elements returned will be the same, only changing
+    those that are "changable" by your function. This does NOT mean that the
     elements that return as falsy DO NOT appear within the new array, but rather
     they are shown as they were, left untouched/unchanged. This way, all
-    objects available within the array will still be mapped (meaning things
-    like sparse arrays with empty elements will work but the element will 
-    appear as empty or null or 0, etc.)
+    objects available within the OG array will still be mapped on the new array 
+    (meaning things like sparse arrays with empty elements will work but the 
+    element will appear as empty or null or 0, etc.)
 
     If the function concatenates or uses a template literal to interpolate the
-    values into a string, then you can still return or print those objects as
-    a string becuase it was define within the function's method.
+    elements into a string, then you can still return or print those objects as
+    a string within that new array becuase those elements are still available but
+    changed based on the function provided.
 
     e.g. 
     const colorProfile = [
